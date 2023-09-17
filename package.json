@@ -1,0 +1,16 @@
+{
+  "name": "object.upkeep",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.2.2",
+    "vitest": "^0.34.4"
+  }
+}
