@@ -1,15 +1,25 @@
 {
   "name": "object.upkeep",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.1.0",
+  "source": "src/object.upkeep.ts",
+  "description": "Upkeep is a function for lazily ensuring that data is migrated to the latest version.",
+  "exports": {
+    "require": "./dist/object.upkeep.cjs",
+    "default": "./dist/object.upkeep.modern.js"
+  },
+  "main": "./dist/object.upkeep.cjs",
+  "module": "./dist/object.upkeep.module.js",
+  "unpkg": "./dist/object.upkeep.umd.js",
+  "types": "./dist/object.upkeep.d.ts",
   "scripts": {
-    "test": "vitest"
+    "test": "vitest",
+    "build": "microbundle"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "microbundle": "^0.15.1",
     "typescript": "^5.2.2",
     "vitest": "^0.34.4"
   }
