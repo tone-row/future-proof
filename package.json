@@ -18,6 +18,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tone-row/object.upkeep"
+  },
   "devDependencies": {
     "microbundle": "^0.15.1",
     "typescript": "^5.2.2",
