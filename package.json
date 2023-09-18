@@ -1,15 +1,20 @@
 {
   "name": "object.upkeep",
-  "version": "0.2.1",
-  "source": "src/object.upkeep.ts",
+  "version": "0.2.2",
   "description": "Upkeep is a function for lazily ensuring that data is migrated to the latest version.",
-  "main": "./dist/object.upkeep.js",
-  "module": "./dist/object.upkeep.module.js",
-  "unpkg": "./dist/object.upkeep.umd.js",
-  "types": "./dist/object.upkeep.d.ts",
+  "source": "src/object.upkeep.ts",
+  "main": "dist/object.upkeep.js",
+  "umd:main": "dist/object.upkeep.umd.js",
+  "module": "dist/object.upkeep.mjs",
+  "exports": {
+    "types": "./dist/object.upkeep.d.ts",
+    "require": "./dist/object.upkeep.js",
+    "default": "./dist/object.upkeep.modern.mjs"
+  },
+  "types": "dist/object.upkeep.d.ts",
   "scripts": {
     "test": "vitest",
-    "build": "microbundle",
+    "build": "rm -rf dist &&microbundle",
     "prepublish": "pnpm run build"
   },
   "files": [
