@@ -1,12 +1,8 @@
 {
   "name": "object.upkeep",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "source": "src/object.upkeep.ts",
   "description": "Upkeep is a function for lazily ensuring that data is migrated to the latest version.",
-  "exports": {
-    "require": "./dist/object.upkeep.js",
-    "default": "./dist/object.upkeep.modern.js"
-  },
   "main": "./dist/object.upkeep.js",
   "module": "./dist/object.upkeep.module.js",
   "unpkg": "./dist/object.upkeep.umd.js",
