@@ -1,6 +1,6 @@
 {
   "name": "object.upkeep",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "source": "src/object.upkeep.ts",
   "description": "Upkeep is a function for lazily ensuring that data is migrated to the latest version.",
   "exports": {
