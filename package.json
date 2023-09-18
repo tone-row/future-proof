@@ -1,6 +1,6 @@
 {
   "name": "object.upkeep",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "source": "src/object.upkeep.ts",
   "description": "Upkeep is a function for lazily ensuring that data is migrated to the latest version.",
   "main": "./dist/object.upkeep.js",
@@ -9,7 +9,8 @@
   "types": "./dist/object.upkeep.d.ts",
   "scripts": {
     "test": "vitest",
-    "build": "microbundle"
+    "build": "microbundle",
+    "prepublish": "pnpm run build"
   },
   "files": [
     "dist"
