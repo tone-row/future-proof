@@ -4,16 +4,15 @@ import { upkeep } from "./object.upkeep";
 describe("upkeep", () => {
   test("throws if no migrations are provided", () => {
     // @ts-ignore
-    expect(() => upkeep({})).toThrow();
+    expect(() => upkeep(new Map())).toThrow();
   });
 
   test("returns defaults if only one migration given", () => {
     const migrations = new Map();
     migrations.set("1", () => ({ test: "test" }));
 
-    const [data, version] = upkeep({
-      migrations,
-    });
+    const migrate = upkeep(migrations);
+    const [data, version] = migrate({});
 
     expect(data).toEqual({ test: "test" });
     expect(version).toEqual("1");
@@ -23,8 +22,8 @@ describe("upkeep", () => {
     const migrations = new Map();
     migrations.set("1", () => ({ test: "test" }));
 
-    const [data, version] = upkeep({
-      migrations,
+    const migrate = upkeep(migrations);
+    const [data, version] = migrate({
       version: "1",
       data: { test: "i've already been set!" },
     });
@@ -36,10 +35,10 @@ describe("upkeep", () => {
   test("throws if version is not in list of migrations", () => {
     const migrations = new Map();
     migrations.set("1", () => ({ test: "test" }));
+    const migrate = upkeep(migrations);
 
     expect(() =>
-      upkeep({
-        migrations,
+      migrate({
         version: "2",
       })
     ).toThrow();
@@ -49,12 +48,12 @@ describe("upkeep", () => {
     const migrations = new Map();
     migrations.set("1", () => ({ test: "test" }));
     migrations.set("2", (data) => ({ ...data, test2: "test2" }));
-
-    const [data, version] = upkeep<{
+    const migrate = upkeep<{
       test: string;
       test2: string;
-    }>({
-      migrations,
+    }>(migrations);
+
+    const [data, version] = migrate({
       version: "1",
       data: { test: "i've already been set!" },
     });
