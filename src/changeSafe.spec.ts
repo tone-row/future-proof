@@ -2,25 +2,53 @@ import { test, describe, expect } from "vitest";
 import { changeSafe } from "./changeSafe";
 
 describe("changeSafe", () => {
-  test("Returns a version number alongside the result", () => {
-    const x = changeSafe(() => {
+  test("Returns a version number and a migrate function and next function", () => {
+    const { migrate } = changeSafe(() => {
       return 100;
     });
-    expect(x.result).toEqual(100);
-    expect(x.version).toEqual(0);
 
-    const y = x.next((x) => x + 1);
-    expect(y.result).toEqual(101);
-    expect(y.version).toEqual(1);
+    const { version, result } = migrate();
+    expect(version).toBe(0);
+    expect(result).toBe(100);
   });
 
-  test.todo("throws if no migrations are provided");
+  test("Can use next function to describe a migration", () => {
+    const { migrate } = changeSafe(() => {
+      return 100;
+    }).next((x) => {
+      return x + 1;
+    });
 
-  test.todo("returns defaults if only one migration given");
+    const { version, result } = migrate();
+    expect(version).toBe(1);
+    expect(result).toBe(101);
+  });
 
-  test.todo("only applies first migration if version is missing");
+  test("Can pass in version number and data to migrate", () => {
+    const { migrate } = changeSafe(() => {
+      return 100;
+    }).next((x) => {
+      return x + 1;
+    });
 
-  test.todo("throws if version is not in list of migrations");
+    const { version, result } = migrate(0, 50);
+    expect(version).toBe(1);
+    expect(result).toBe(51);
+  });
 
-  test.todo("applies only needed migrations");
+  test("Doesn't change data if version is up to date", () => {
+    const { migrate } = changeSafe(() => {
+      return 100;
+    })
+      .next((x) => {
+        return x + 1;
+      })
+      .next((x) => {
+        return x * 10;
+      });
+
+    const { version, result } = migrate(2, 50);
+    expect(version).toBe(2);
+    expect(result).toBe(50);
+  });
 });
