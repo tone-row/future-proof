@@ -1,38 +1,57 @@
 export function create<
   FirstVersion extends string | number | symbol,
   FirstData
->(version: FirstVersion, fn: () => FirstData) {
-  return createInner<{ [V in FirstVersion]: FirstData }, FirstVersion>();
+>(version: FirstVersion, data: () => FirstData) {
+  const migrations = {
+    [version]: data,
+  };
+
+  return createInner<{ [V in FirstVersion]: FirstData }, FirstVersion>(
+    migrations,
+    [version]
+  );
 }
 
-function createInner<VersionMap, Version extends keyof VersionMap>() {
+function createInner<VersionMap, Version extends keyof VersionMap>(
+  migrations: Record<string | number | symbol, Function>,
+  versions: (string | number | symbol)[]
+) {
   return {
     next: <NextVersion extends string | number | symbol, NextData>(
       nextVersion: NextVersion,
       fn: (args: VersionMap[Version]) => NextData
     ) => {
+      migrations[nextVersion] = fn;
+
       return createInner<
         VersionMap & { [V in NextVersion]: NextData },
         NextVersion
-      >();
+      >(migrations, [...versions, nextVersion]);
     },
     migrate: <V extends keyof VersionMap, D extends VersionMap[V]>(
       version: V,
       data: D
     ) => {
-      console.log("HI THERE");
+      const versionIndex = versions.indexOf(version);
+      if (versionIndex === -1) {
+        throw new Error(`Version ${version.toString()} not found`);
+      }
+
+      for (let i = versionIndex + 1; i < versions.length; i++) {
+        const key = versions[i];
+        if (!key) throw new Error("Key not found");
+
+        const migration = migrations[key as keyof typeof migrations];
+        if (!migration)
+          throw new Error(`Migration ${key.toString()} not found`);
+
+        data = migration(data);
+      }
+
+      return {
+        version: versions[versions.length - 1],
+        result: data,
+      };
     },
   };
 }
-
-const x3 = create("1", () => ({ x: 10 }));
-const y3 = x3.next("2", (input) => ({ ...input, y: 20 }));
-const z3 = y3.next("3", (input) => ({ ...input, z: 30 }));
-const a3 = z3.next("4", (input) => ({ ...input, a: 40, jorge: 48 }));
-
-a3.migrate("1", { x: 10 });
-a3.migrate("3", {
-  x: 10,
-  y: 20,
-  z: 30,
-});
