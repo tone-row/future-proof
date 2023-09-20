@@ -1,5 +1,4 @@
 // @ts-nocheck
-
 type ChangeSafe<T> = {
   version: number;
   next: <U>(fn: (arg: T) => U) => ChangeSafe<U>;
