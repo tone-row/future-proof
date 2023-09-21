@@ -1,13 +1,6 @@
-In the middle of a rewrite. Not published yet...
+# From to Now
 
-To do
+## To Do
 
-- the return type of migrate is incorrect
-- finish writing the version where you declare your own version
-  - ~~make sure the migrations actually work~~
-  - ~~make sure you can get the schema out~~
-  - make sure there's a way to explicitly say what your type is
-- ~~write the tests~~
-- try to adjust it so it plugs in nicely with zustand (and jotai? and zod?)
-- pick a name and change the root package to that and delete the rest
-- make sure there is a way to get the schema out
+- Test types when passing individual versions
+- Consider overloading with ability to pass function instead of version which finds "version" in data. Consider making data => data.version the default. (If the version is stored outside of the root of the object, and you started your app without that version, being wherever it ought to be..., then you can 'migrate' all day long but data will be continuously overwritten because the version itself was never there. This forces the user to, in effect, do the same thing that this library is trying to do, i.e. check and make sure something exists and is up to date. I think it's possible we should require there to be a version on the object itself that's passed in to each migration.)
