@@ -13,7 +13,15 @@ I'm also a frequent user of [Zustand](https://github.com/pmndrs/zustand) persist
 ## Installation
 
 ```shell
-pnpm add future-proof # npm install future-proof, yarn add future-proof
+pnpm add future-proof
+```
+
+```shell
+npm install future-proof
+```
+
+```shell
+yarn add future-proof
 ```
 
 ### How to Use
@@ -23,13 +31,29 @@ pnpm add future-proof # npm install future-proof, yarn add future-proof
 
 ### Define Migration Steps
 
-You can define your migration steps using the `from` function, which takes an initial state object as a parameter. It returns an object with a fluent interface, allowing you to chain multiple `to` functions to define your migration steps.
+Pass your initial state to the `from` function. Don't use a variable.
+
+To complete the definition, call the `init` function with the initial state (do use a variable!).
+
+```typescript
+// In the beginning
+const initialState = { x: 0, y: 0 };
+const { version, migrate } = from({ x: 0, y: 0 }).init(initialState);
+```
+
+As your data changes, chain `to` functions to define migration steps.
+
+```typescript
+// Later on
+const initialState = { x: 0, y: 0, z: 0 };
+const { version, migrate } = from({ x: 0, y: 0 })
+  .to((state) => ({ ...state, z: 0 }))
+  .init(initialState);
+```
 
 Each `to` function takes a callback function that receives the current state object and returns a new state object with the desired changes. You can add as many `to` functions as necessary to transform your data.
 
-To complete the migration, you can call the `init` function with the initial state object. This types your returned state object, and tells `future-proof` what to return if it is called with no parameters.
-
-Here's an example of defining migration steps:
+Here's a longer example:
 
 ```typescript
 // In this example we begin with x and y properties.
@@ -107,3 +131,7 @@ const useStore = create<State>()(
   })
 );
 ```
+
+### Contributions
+
+Contributions are welcome! Please open an issue or submit a PR.
