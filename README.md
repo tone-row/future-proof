@@ -2,7 +2,7 @@
 
 A utility for writing data migration logic in code so you can change the shape of your data confidently as your app evolves.
 
-![Data Flow](./example2.png)
+![Data Flow](./usage.png)
 
 ## Motivation
 
