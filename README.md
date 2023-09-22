@@ -1,6 +1,8 @@
 # future-proof
 
-`future-proof` is a utility for storing data migration logic that makes it simple to define and apply data migration steps, so you can change the shape of your data confidently as your app evolves.
+A utility for writing data migration logic in code so you can change the shape of your data confidently as your app evolves.
+
+![Data Flow](./example.png)
 
 ## Motivation
 
