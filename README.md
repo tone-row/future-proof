@@ -1,6 +1,6 @@
 # future-proof
 
-A utility for writing data migration logic in code so you can change the shape of your data confidently as your app evolves.
+Write data migration logic in code so you can change the shape of your data confidently as your app evolves.
 
 ![Data Flow](./usage.png)
 
@@ -27,7 +27,7 @@ You can define your migration steps using the `from` function, which takes an in
 
 Each `to` function takes a callback function that receives the current state object and returns a new state object with the desired changes. You can add as many `to` functions as necessary to transform your data.
 
-To complete the migration, you can call the `now` function with the initial state object. This types your returned state object, and tells `future-proof` what to return if it is called with no parameters.
+To complete the migration, you can call the `init` function with the initial state object. This types your returned state object, and tells `future-proof` what to return if it is called with no parameters.
 
 Here's an example of defining migration steps:
 
@@ -48,7 +48,7 @@ const { version, migrate } = from({
     ...state,
     θ: 0,
   }))
-  .now({
+  .init({
     x: 100,
     y: 100,
     z: 100,
@@ -56,7 +56,7 @@ const { version, migrate } = from({
   });
 ```
 
-The `now` function returns the current version number and a `migrate` function we can use to ensure our data is up to date.
+The `init` function returns the current version number and a `migrate` function we can use to ensure our data is up to date.
 
 ### Apply Migrations
 
@@ -97,7 +97,7 @@ const { version, migrate } = from({
 })
   .to((data) => ({ ...data, z: 100 }))
   .to((data) => ({ ...data, θ: 0 }))
-  .now(initialState);
+  .init(initialState);
 
 const useStore = create<State>()(
   persist((set) => initialState, {

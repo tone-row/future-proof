@@ -1,5 +1,5 @@
 import { test, describe, expect } from "vitest";
-import { from } from "./from-to-now";
+import { from } from "./future-proof";
 
 describe("from", () => {
   test("Returns version number & migrate function", () => {
@@ -22,7 +22,7 @@ describe("from", () => {
         ...state,
         θ: 0,
       }))
-      .now(initialState);
+      .init(initialState);
 
     expect(version).toBe(2);
     expect(migrate).toBeDefined();
@@ -32,7 +32,7 @@ describe("from", () => {
     const { version } = from({
       x: 100,
       y: 100,
-    }).now({ x: 100, y: 100 });
+    }).init({ x: 100, y: 100 });
 
     expect(version).toBe(0);
   });
@@ -57,7 +57,7 @@ describe("from", () => {
         ...state,
         θ: 0,
       }))
-      .now(initialState);
+      .init(initialState);
 
     const data = migrate(
       {
@@ -95,7 +95,7 @@ describe("from", () => {
         ...state,
         θ: 0,
       }))
-      .now(initialState);
+      .init(initialState);
 
     const data = migrate(
       {
@@ -135,7 +135,7 @@ describe("from", () => {
         ...state,
         θ: 0,
       }))
-      .now(initialState);
+      .init(initialState);
 
     expect(() => {
       migrate(
@@ -168,7 +168,7 @@ describe("from", () => {
         ...state,
         θ: 0,
       }))
-      .now(initialState);
+      .init(initialState);
 
     expect(() => {
       migrate(
@@ -202,7 +202,7 @@ describe("from", () => {
         ...state,
         θ: 0,
       }))
-      .now(initialState);
+      .init(initialState);
 
     expect(() => {
       migrate(
@@ -235,7 +235,7 @@ describe("from", () => {
         ...state,
         θ: 0,
       }))
-      .now(initialState);
+      .init(initialState);
 
     expect(() => {
       migrate(
@@ -268,7 +268,7 @@ describe("from", () => {
         ...state,
         θ: 0,
       }))
-      .now(initialState);
+      .init(initialState);
 
     expect(migrate()).toEqual(initialState);
   });
@@ -293,7 +293,7 @@ describe("from", () => {
           },
         };
       })
-      .now({
+      .init({
         name: "Lisa",
         age: {
           amount: 30,

@@ -1,11 +1,11 @@
 import { structuredClone } from "./structuredClone";
 
 export function from<Data>(initial: Data) {
-  return fromToNow(initial, 0, [initial]);
+  return fromTo(initial, 0, [initial]);
 }
 
-function fromToNow<From>(from: From, version: number, migrations: any[]) {
-  const now = <Final>(final: Final) => {
+function fromTo<From>(from: From, version: number, migrations: any[]) {
+  const init = <Final>(final: Final) => {
     let migrate: {
       (): Final;
       (state: any, version: number): Final;
@@ -55,12 +55,12 @@ function fromToNow<From>(from: From, version: number, migrations: any[]) {
   };
 
   const to = <To>(fn: (from: From) => To) => {
-    return fromToNow(fn(from), version + 1, [...migrations, fn]);
+    return fromTo(fn(from), version + 1, [...migrations, fn]);
   };
 
   return {
     to,
     version,
-    now,
+    init,
   };
 }
