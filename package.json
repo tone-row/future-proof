@@ -1,17 +1,17 @@
 {
-  "name": "from-to-now",
+  "name": "future-proof",
   "version": "0.1.0",
-  "description": "Upkeep is a function for lazily ensuring that data is migrated to the latest version.",
-  "source": "src/object.upkeep.ts",
-  "main": "dist/object.upkeep.js",
-  "umd:main": "dist/object.upkeep.umd.js",
-  "module": "dist/object.upkeep.mjs",
+  "description": "A utility for lazily ensuring that data is migrated to the latest version.",
+  "source": "src/future-proof.ts",
+  "main": "dist/future-proof.js",
+  "umd:main": "dist/future-proof.umd.js",
+  "module": "dist/future-proof.mjs",
   "exports": {
-    "types": "./dist/object.upkeep.d.ts",
-    "require": "./dist/object.upkeep.js",
-    "default": "./dist/object.upkeep.modern.mjs"
+    "types": "./dist/future-proof.d.ts",
+    "require": "./dist/future-proof.js",
+    "default": "./dist/future-proof.modern.mjs"
   },
-  "types": "dist/object.upkeep.d.ts",
+  "types": "dist/future-proof.d.ts",
   "scripts": {
     "test": "vitest",
     "build": "rm -rf dist &&microbundle",
